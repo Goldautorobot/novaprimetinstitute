@@ -215,7 +215,10 @@ export default function App() {
           transition={{ delay: 0.8 }}
           className="p-8 rounded-3xl bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-center relative overflow-hidden group"
         >
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20" />
+          {/* Replaced external texture with a CSS-based pattern */}
+          <div className="absolute inset-0 opacity-10" 
+               style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '24px 24px' }} 
+          />
           <div className="relative z-10">
             <h3 className="text-2xl md:text-3xl font-black mb-4 tracking-tighter">
               READY TO DOMINATE THE MARKET?
