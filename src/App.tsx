@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { useEffect } from "react";
 import { motion } from "motion/react";
 import { 
   Instagram, 
@@ -26,6 +27,14 @@ export default function App() {
     }
   };
 
+  // Trigger ViewContent on page load to ensure activity is registered
+  useEffect(() => {
+    trackEvent('ViewContent', { 
+      content_type: 'product_group',
+      content_name: 'Nova Prime Landing Page'
+    });
+  }, []);
+
   const socialLinks = [
     {
       name: "WhatsApp Channel",
@@ -35,7 +44,10 @@ export default function App() {
       description: "Get 90% Free Accurate Signals",
       prominent: true,
       badge: "HOT",
-      track: () => trackEvent('CompleteRegistration', { content_name: 'WhatsApp Channel' })
+      track: () => {
+        trackEvent('InitiateCheckout', { content_name: 'WhatsApp Channel' });
+        trackEvent('CompleteRegistration', { content_name: 'WhatsApp Channel' });
+      }
     },
     {
       name: "WhatsApp Support",
@@ -44,7 +56,9 @@ export default function App() {
       color: "bg-[#075E54]",
       description: "Direct Support for Traders",
       prominent: false,
-      track: () => trackEvent('Contact', { content_name: 'WhatsApp Support' })
+      track: () => {
+        trackEvent('Contact', { content_name: 'WhatsApp Support' });
+      }
     },
     {
       name: "Instagram",
@@ -53,7 +67,7 @@ export default function App() {
       color: "bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7]",
       description: "Daily Market Analysis & Tips",
       prominent: false,
-      track: () => trackEvent('ViewContent', { content_name: 'Instagram' })
+      track: () => trackEvent('ViewContent', { content_name: 'Instagram Link' })
     },
     {
       name: "TikTok",
@@ -62,7 +76,7 @@ export default function App() {
       color: "bg-black",
       description: "Educational Trading Content",
       prominent: false,
-      track: () => trackEvent('ViewContent', { content_name: 'TikTok' })
+      track: () => trackEvent('ViewContent', { content_name: 'TikTok Link' })
     }
   ];
 
@@ -196,7 +210,10 @@ export default function App() {
             href="https://whatsapp.com/channel/0029VajaEpw9MF8ygmxtD11E"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackEvent('CompleteRegistration', { content_name: 'Main Button Channel' })}
+            onClick={() => {
+              trackEvent('InitiateCheckout', { content_name: 'Main Button Channel' });
+              trackEvent('CompleteRegistration', { content_name: 'Main Button Channel' });
+            }}
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full font-black text-sm tracking-tight hover:bg-zinc-200 transition-colors"
           >
             JOIN FREE CHANNEL NOW
@@ -214,7 +231,10 @@ export default function App() {
         href="https://wa.me/923471394290"
         target="_blank"
         rel="noopener noreferrer"
-        onClick={() => trackEvent('Contact', { content_name: 'Floating Button Support' })}
+        onClick={() => {
+          trackEvent('InitiateCheckout', { content_name: 'Floating Button Support' });
+          trackEvent('Contact', { content_name: 'Floating Button Support' });
+        }}
         className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-xl"
       >
         <MessageCircle className="w-6 h-6" />
