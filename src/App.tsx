@@ -19,6 +19,13 @@ import {
 } from "lucide-react";
 
 export default function App() {
+  // TikTok Pixel tracking helper
+  const trackEvent = (eventName: string, params = {}) => {
+    if (typeof window !== 'undefined' && (window as any).ttq) {
+      (window as any).ttq.track(eventName, params);
+    }
+  };
+
   const socialLinks = [
     {
       name: "WhatsApp Channel",
@@ -27,7 +34,8 @@ export default function App() {
       color: "bg-[#25D366]",
       description: "Get 90% Free Accurate Signals",
       prominent: true,
-      badge: "HOT"
+      badge: "HOT",
+      track: () => trackEvent('CompleteRegistration', { content_name: 'WhatsApp Channel' })
     },
     {
       name: "WhatsApp Support",
@@ -35,7 +43,8 @@ export default function App() {
       icon: <MessageCircle className="w-6 h-6" />,
       color: "bg-[#075E54]",
       description: "Direct Support for Traders",
-      prominent: false
+      prominent: false,
+      track: () => trackEvent('Contact', { content_name: 'WhatsApp Support' })
     },
     {
       name: "Instagram",
@@ -43,7 +52,8 @@ export default function App() {
       icon: <Instagram className="w-6 h-6" />,
       color: "bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7]",
       description: "Daily Market Analysis & Tips",
-      prominent: false
+      prominent: false,
+      track: () => trackEvent('ViewContent', { content_name: 'Instagram' })
     },
     {
       name: "TikTok",
@@ -51,7 +61,8 @@ export default function App() {
       icon: <Music2 className="w-6 h-6" />,
       color: "bg-black",
       description: "Educational Trading Content",
-      prominent: false
+      prominent: false,
+      track: () => trackEvent('ViewContent', { content_name: 'TikTok' })
     }
   ];
 
@@ -125,6 +136,7 @@ export default function App() {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={link.track}
               variants={itemVariants}
               whileTap={{ scale: 0.98 }}
               className={`group relative flex items-center p-4 rounded-xl border transition-all duration-200 ${
@@ -184,6 +196,7 @@ export default function App() {
             href="https://whatsapp.com/channel/0029VajaEpw9MF8ygmxtD11E"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackEvent('CompleteRegistration', { content_name: 'Main Button Channel' })}
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full font-black text-sm tracking-tight hover:bg-zinc-200 transition-colors"
           >
             JOIN FREE CHANNEL NOW
@@ -201,6 +214,7 @@ export default function App() {
         href="https://wa.me/923471394290"
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackEvent('Contact', { content_name: 'Floating Button Support' })}
         className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-xl"
       >
         <MessageCircle className="w-6 h-6" />
